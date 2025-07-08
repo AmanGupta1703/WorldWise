@@ -11,7 +11,7 @@ export const useFetch = (lat, lng) => {
   });
 
   useEffect(() => {
-    const URL = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lng}&appid=${config.openWeatherAPIKey}`;
+    const URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lng}&appid=${config.openWeatherAPIKey}`;
 
     const fetchData = async () => {
       try {
