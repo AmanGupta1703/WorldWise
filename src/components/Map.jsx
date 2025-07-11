@@ -1,12 +1,21 @@
 import { useEffect } from "react";
 
 import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from "react-leaflet";
+import { Icon } from "leaflet";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 
 import { useGeoLocation } from "../contexts/GeoLocationContext";
 import { useCities } from "../contexts/CitiesContext";
 import { useFetch } from "../hooks/use-fetch";
+
+const iconUrl = "https://img.icons8.com/?size=100&id=oLwbPmqGqUeT&format=png&color=000000";
+const emojiIcon = new Icon({
+  iconUrl,
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
+});
 
 const CityLocation = () => {
   const navigate = useNavigate();
@@ -37,12 +46,6 @@ const CityLocation = () => {
   useEffect(() => {
     if (position) map.flyTo(position);
   }, [position]);
-
-  // useEffect(() => {
-  //   if (!lat || !lng || !data) return;
-
-  //   dispatch({ type: "cities/current-city", payload: data });
-  // }, [lat, lng, data]);
 };
 
 const ShowMarker = () => {
@@ -51,7 +54,7 @@ const ShowMarker = () => {
   const map = useMap();
 
   return cities?.map((city) => (
-    <Marker key={city.id} position={[city.position.lat, city.position.lng]}>
+    <Marker key={city.id} icon={emojiIcon} position={[city.position.lat, city.position.lng]}>
       <Popup>{city.cityName}</Popup>
     </Marker>
   ));
